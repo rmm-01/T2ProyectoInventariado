@@ -1,8 +1,8 @@
-using T2ProyectoInventariado.Entities;
-using T2ProyectoInventariado.Interfaces;
-using T2ProyectoInventariado.Services;
+using T3ProyectoInventariado.Entities;
+using T3ProyectoInventariado.Interfaces;
+using T3ProyectoInventariado.Services;
 
-namespace T2ProyectoInventariado.Forms
+namespace T3ProyectoInventariado.Forms
 {
     public class FormProveedores : Form
     {

@@ -1,4 +1,4 @@
-namespace T2ProyectoInventariado
+namespace T3ProyectoInventariado
 {
     public partial class Form1 : Form
     {

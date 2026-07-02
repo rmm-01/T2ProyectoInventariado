@@ -1,4 +1,4 @@
-namespace T2ProyectoInventariado.Entities
+namespace T3ProyectoInventariado.Entities
 {
     public enum EstadoOrden
     {

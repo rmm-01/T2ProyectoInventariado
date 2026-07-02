@@ -1,7 +1,7 @@
-using T2ProyectoInventariado.Entities;
-using T2ProyectoInventariado.Interfaces;
+using T3ProyectoInventariado.Entities;
+using T3ProyectoInventariado.Interfaces;
 
-namespace T2ProyectoInventariado.Data
+namespace T3ProyectoInventariado.Data
 {
     public static class DatosIniciales
     {

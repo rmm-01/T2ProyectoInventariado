@@ -1,6 +1,6 @@
-using T2ProyectoInventariado.Entities;
+using T3ProyectoInventariado.Entities;
 
-namespace T2ProyectoInventariado.OCP
+namespace T3ProyectoInventariado.OCP
 {
     public abstract class MovimientoBase
     {

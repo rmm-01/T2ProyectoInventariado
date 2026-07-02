@@ -1,8 +1,8 @@
-using T2ProyectoInventariado.Entities;
-using T2ProyectoInventariado.Interfaces;
-using T2ProyectoInventariado.OCP;
+using T3ProyectoInventariado.Entities;
+using T3ProyectoInventariado.Interfaces;
+using T3ProyectoInventariado.OCP;
 
-namespace T2ProyectoInventariado.Services
+namespace T3ProyectoInventariado.Services
 {
     public class StockService : IStockService
     {

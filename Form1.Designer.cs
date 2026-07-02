@@ -1,4 +1,4 @@
-﻿namespace T2ProyectoInventariado
+﻿namespace T3ProyectoInventariado
 {
     partial class Form1
     {

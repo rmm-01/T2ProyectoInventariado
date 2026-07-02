@@ -1,6 +1,6 @@
-using T2ProyectoInventariado.Interfaces;
+using T3ProyectoInventariado.Interfaces;
 
-namespace T2ProyectoInventariado.Forms
+namespace T3ProyectoInventariado.Forms
 {
     public class FormMenu : Form
     {

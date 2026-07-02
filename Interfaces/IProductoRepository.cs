@@ -1,6 +1,6 @@
-using T2ProyectoInventariado.Entities;
+using T3ProyectoInventariado.Entities;
 
-namespace T2ProyectoInventariado.Interfaces
+namespace T3ProyectoInventariado.Interfaces
 {
     public interface IProductoRepository
     {
