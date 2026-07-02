@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <!-- net10 requiere VS 17.16+. Se usa net8 (LTS) para compatibilidad con Visual Studio 2022. -->
+    <!-- Si tu VS soporta net9, puedes cambiarlo a net9.0-windows. -->
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>T3ProyectoInventariado</RootNamespace>
+    <AssemblyName>T3ProyectoInventariado</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Driver de acceso a SQL Server (conexion cliente -> servidor de BD por TCP) -->
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- La cadena de conexion vive en este archivo: se copia junto al .exe -->
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>
