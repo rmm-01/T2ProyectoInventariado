@@ -47,7 +47,7 @@ Forms (UI)  →  Services (reglas de negocio)  →  Interfaces  ←  Repositorie
   `DatabaseInitializer` crea las tablas solas la primera vez que corre la app
   (no hace falta correr un script `.sql` a mano).
 
-## Cosas para mencionar en la sustentación (SOLID)
+## Cosas para mencionar (SOLID)
 
 - **S**: cada clase tiene un trabajo (repos = datos, services = reglas, forms = UI).
 - **O**: `OCP/MovimientoBase` + subclases — agregar movimientos nuevos sin tocar código viejo.
