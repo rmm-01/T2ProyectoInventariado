@@ -1,6 +1,5 @@
 using T2ProyectoInventariado.Entities;
 using T2ProyectoInventariado.Interfaces;
-using T2ProyectoInventariado.OCP;
 
 namespace T2ProyectoInventariado.Services
 {
@@ -8,11 +7,13 @@ namespace T2ProyectoInventariado.Services
     {
         private readonly IOrdenCompraRepository _ordenRepository;
         private readonly IProductoRepository _productoRepository;
+        private readonly IStockService _stockService;
 
-        public OrdenCompraService(IOrdenCompraRepository ordenRepository, IProductoRepository productoRepository)
+        public OrdenCompraService(IOrdenCompraRepository ordenRepository, IProductoRepository productoRepository, IStockService stockService)
         {
             _ordenRepository = ordenRepository;
             _productoRepository = productoRepository;
+            _stockService = stockService;
         }
 
         public List<OrdenCompra> ObtenerTodos() => _ordenRepository.ObtenerTodos();
@@ -26,14 +27,12 @@ namespace T2ProyectoInventariado.Services
             var orden = _ordenRepository.ObtenerPorId(ordenId);
             if (orden == null || orden.Estado == EstadoOrden.Recibida) return;
 
-            var movimiento = new MovimientoEntrada();
-
             foreach (var detalle in orden.Detalles)
             {
                 var producto = _productoRepository.ObtenerPorId(detalle.ProductoId);
                 if (producto != null)
                 {
-                    movimiento.AplicarMovimiento(producto, detalle.Cantidad);
+                    _stockService.AplicarMovimiento(producto, detalle.Cantidad);
                     _productoRepository.Actualizar(producto);
                 }
             }
