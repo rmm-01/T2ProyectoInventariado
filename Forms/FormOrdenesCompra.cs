@@ -86,7 +86,7 @@ namespace T2ProyectoInventariado.Forms
         private void BtnConfirmar_Click(object? sender, EventArgs e)
         {
             if (_dgv.SelectedRows.Count == 0) return;
-            var id = (int)_dgv.SelectedRows[0].Cells["Id"].Value;
+            var id = Convert.ToInt32(_dgv.SelectedRows[0].Cells["Id"].Value);
             var orden = _service.ObtenerPorId(id);
             if (orden == null) return;
 

@@ -12,6 +12,13 @@ namespace T2ProyectoInventariado
         {
             ApplicationConfiguration.Initialize();
 
+            // Red de seguridad para errores de BD que ocurren despues del arranque
+            // (ej. se cae el servidor SQL mientras la app ya esta abierta): en vez de
+            // crashear, se muestra un mensaje y la app sigue viva.
+            Application.ThreadException += (_, e) => MostrarErrorNoManejado(e.Exception);
+            AppDomain.CurrentDomain.UnhandledException += (_, e) =>
+                MostrarErrorNoManejado(e.ExceptionObject as Exception ?? new Exception("Error desconocido."));
+
             // 1) Leer la cadena de conexion (define en QUE maquina vive la base de datos).
             string cs;
             try
@@ -52,6 +59,15 @@ namespace T2ProyectoInventariado
                 DatosIniciales.Cargar(productoRepo, proveedorRepo, ordenRepo);
 
             Application.Run(new FormMenu(productoRepo, proveedorRepo, ordenRepo));
+        }
+
+        private static void MostrarErrorNoManejado(Exception ex)
+        {
+            var mensaje = ex is SqlException
+                ? "Se perdio la conexion con la base de datos.\n\nDetalle: " + ex.Message
+                : "Ocurrio un error inesperado.\n\nDetalle: " + ex.Message;
+
+            MessageBox.Show(mensaje, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }

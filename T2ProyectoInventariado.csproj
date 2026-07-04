@@ -9,6 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <!-- Evita que el glob por defecto del SDK incluya el proyecto de tests como si fuera parte de este ensamblado -->
+    <Compile Remove="T2ProyectoInventariado.Tests\**" />
+    <EmbeddedResource Remove="T2ProyectoInventariado.Tests\**" />
+    <None Remove="T2ProyectoInventariado.Tests\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <!-- Driver de acceso a SQL Server (conexion cliente -> servidor de BD por TCP) -->
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.2" />
   </ItemGroup>
