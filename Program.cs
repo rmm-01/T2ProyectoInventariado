@@ -14,10 +14,11 @@ namespace T2ProyectoInventariado
             var productoRepo = new ProductoRepository();
             var proveedorRepo = new ProveedorRepository();
             var ordenRepo = new OrdenCompraRepository();
+            var clienteRepo = new ClienteRepository();
 
             DatosIniciales.Cargar(productoRepo, proveedorRepo, ordenRepo);
 
-            Application.Run(new FormMenu(productoRepo, proveedorRepo, ordenRepo));
+            Application.Run(new FormMenu(productoRepo, proveedorRepo, ordenRepo, clienteRepo));
         }
     }
 }
