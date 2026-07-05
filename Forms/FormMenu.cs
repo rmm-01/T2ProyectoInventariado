@@ -7,12 +7,14 @@ namespace T2ProyectoInventariado.Forms
         private readonly IProductoRepository _productoRepo;
         private readonly IProveedorRepository _proveedorRepo;
         private readonly IOrdenCompraRepository _ordenRepo;
+        private readonly IClienteRepository _clienteRepo;
 
-        public FormMenu(IProductoRepository productoRepo, IProveedorRepository proveedorRepo, IOrdenCompraRepository ordenRepo)
+        public FormMenu(IProductoRepository productoRepo, IProveedorRepository proveedorRepo, IOrdenCompraRepository ordenRepo, IClienteRepository clienteRepo)
         {
             _productoRepo = productoRepo;
             _proveedorRepo = proveedorRepo;
             _ordenRepo = ordenRepo;
+            _clienteRepo = clienteRepo;
 
             Text = "Kusi Perú - Sistema de Inventariado";
             ClientSize = new Size(500, 420);
@@ -98,6 +100,20 @@ namespace T2ProyectoInventariado.Forms
             };
 
             Controls.AddRange(new Control[] { btnProductos, btnProveedores, btnOrdenes, hero });
+            var btnClientes = new Button
+            {
+                Text = "Gestión de Clientes",
+                Size = new Size(300, 50),
+                Location = new Point(100, 340),
+                Font = new Font("Segoe UI", 11)
+            };
+            btnClientes.Click += (s, e) =>
+            {
+                var form = new FormClientes(_clienteRepo);
+                form.ShowDialog();
+            };
+
+            Controls.AddRange(new Control[] { lblTitulo, lblSubtitulo, btnProductos, btnProveedores, btnOrdenes, btnClientes });
         }
     }
 }

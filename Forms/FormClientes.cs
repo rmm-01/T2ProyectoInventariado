@@ -13,7 +13,7 @@ namespace T2ProyectoInventariado.Forms
             _service = new ClienteService(repository);
 
             Text = "Gestión de Clientes";
-            ClientSize = new Size(800, 480);
+            ClientSize = new Size(800, 540);
             StartPosition = FormStartPosition.CenterScreen;
 
             _dgv = new DataGridView
@@ -41,6 +41,11 @@ namespace T2ProyectoInventariado.Forms
         {
             _dgv.DataSource = null;
             _dgv.DataSource = _service.ObtenerTodos();
+
+            if (_dgv.Columns["RucODni"] != null)
+            {
+                _dgv.Columns["RucODni"].HeaderText = "DNI/RUC";
+            }
         }
 
         private void BtnNuevo_Click(object? sender, EventArgs e)
