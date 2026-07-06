@@ -47,11 +47,11 @@ namespace T2ProyectoInventariado.Forms
                 }
             }
 
-            if (productosStockBajo > 0)
+            if (Grid.Rows.Count > 0)
             {
                 MessageBox.Show(
-                    $"Hay {productosStockBajo} producto(s) con stock bajo.",
-                    "Aviso",
+                    $"Productos registrados: {Grid.Rows.Count}\nProductos con stock bajo: {productosStockBajo}",
+                    "Resumen del inventario",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
             }
