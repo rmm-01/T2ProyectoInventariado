@@ -34,15 +34,6 @@ namespace T2ProyectoInventariado.Forms
 
         protected override void OnDatosCargados()
         {
-            foreach (DataGridViewRow row in Grid.Rows)
-            {
-
-                if (row.Cells["Estado"].Value?.ToString() == "⚠ STOCK BAJO")
-                {
-                    row.DefaultCellStyle.BackColor = Color.LightCoral;
-                    row.DefaultCellStyle.ForeColor = Color.DarkRed;
-                }
-            }
             int productosStockBajo = 0;
 
             foreach (DataGridViewRow row in Grid.Rows)
@@ -50,13 +41,16 @@ namespace T2ProyectoInventariado.Forms
                 if (row.Cells["Estado"].Value?.ToString() == "⚠ STOCK BAJO")
                 {
                     productosStockBajo++;
+
+                    row.DefaultCellStyle.BackColor = Color.LightCoral;
+                    row.DefaultCellStyle.ForeColor = Color.DarkRed;
                 }
             }
 
             if (productosStockBajo > 0)
             {
                 MessageBox.Show(
-                    $"Hay {productosStockBajo} productos con stock bajo.",
+                    $"Hay {productosStockBajo} producto(s) con stock bajo.",
                     "Aviso",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
