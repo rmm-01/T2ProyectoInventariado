@@ -16,18 +16,7 @@ namespace T2ProyectoInventariado.Services
 
         public Producto? ObtenerPorId(int id) => _repository.ObtenerPorId(id);
 
-        public void Agregar(Producto producto)
-        {
-            var productos = _repository.ObtenerTodos();
-
-            bool existe = productos.Any(p =>
-                p.Nombre.Trim().Equals(producto.Nombre.Trim(), StringComparison.OrdinalIgnoreCase));
-
-            if (existe)
-                throw new Exception("Ya existe un producto con ese nombre.");
-
-            _repository.Agregar(producto);
-        }
+        public void Agregar(Producto producto) => _repository.Agregar(producto);
 
         public void Actualizar(Producto producto) => _repository.Actualizar(producto);
 

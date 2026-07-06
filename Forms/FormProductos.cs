@@ -34,26 +34,13 @@ namespace T2ProyectoInventariado.Forms
 
         protected override void OnDatosCargados()
         {
-            int productosStockBajo = 0;
-
             foreach (DataGridViewRow row in Grid.Rows)
             {
                 if (row.Cells["Estado"].Value?.ToString() == "⚠ STOCK BAJO")
                 {
-                    productosStockBajo++;
-
                     row.DefaultCellStyle.BackColor = Color.LightCoral;
                     row.DefaultCellStyle.ForeColor = Color.DarkRed;
                 }
-            }
-
-            if (productosStockBajo > 0)
-            {
-                MessageBox.Show(
-                    $"Hay {productosStockBajo} producto(s) con stock bajo.",
-                    "Aviso",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
             }
         }
 
@@ -61,19 +48,10 @@ namespace T2ProyectoInventariado.Forms
         {
             var form = new FormProductoDetalle(null);
             if (form.ShowDialog() == DialogResult.OK && form.Producto != null)
-                try
-                {
-                    await Task.Run(() => _service.Agregar(form.Producto));
-                    await RecargarAsync();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(
-                        ex.Message,
-                        "Aviso",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning);
-                }
+            {
+                await Task.Run(() => _service.Agregar(form.Producto));
+                await RecargarAsync();
+            }
         }
 
         protected override async Task OnBoton2Async()
@@ -83,14 +61,7 @@ namespace T2ProyectoInventariado.Forms
 
             var producto = await Task.Run(() => _service.ObtenerPorId(id.Value));
             if (producto == null) return;
-            DialogResult respuesta = MessageBox.Show(
-                "¿Desea editar este producto?",
-                "Confirmación",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question);
 
-            if (respuesta == DialogResult.No)
-                return;
             var form = new FormProductoDetalle(producto);
             if (form.ShowDialog() == DialogResult.OK && form.Producto != null)
             {
