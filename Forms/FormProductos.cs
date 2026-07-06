@@ -34,16 +34,17 @@ namespace T2ProyectoInventariado.Forms
 
         protected override void OnDatosCargados()
         {
+            int productosStockBajo = 0;
+
             foreach (DataGridViewRow row in Grid.Rows)
             {
                 if (row.Cells["Estado"].Value?.ToString() == "⚠ STOCK BAJO")
                 {
                     row.DefaultCellStyle.BackColor = Color.LightCoral;
                     row.DefaultCellStyle.ForeColor = Color.DarkRed;
+                    productosStockBajo++;
                 }
             }
-<<<<<<< HEAD
-=======
 
             if (Grid.Rows.Count > 0)
             {
@@ -53,7 +54,6 @@ namespace T2ProyectoInventariado.Forms
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
             }
->>>>>>> 1761986 (Se agregó resumen de productos al cargar el inventario)
         }
 
         protected override async Task OnBoton1Async()
