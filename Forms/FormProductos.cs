@@ -36,12 +36,23 @@ namespace T2ProyectoInventariado.Forms
         {
             foreach (DataGridViewRow row in Grid.Rows)
             {
+
                 if (row.Cells["Estado"].Value?.ToString() == "⚠ STOCK BAJO")
                 {
                     row.DefaultCellStyle.BackColor = Color.LightCoral;
                     row.DefaultCellStyle.ForeColor = Color.DarkRed;
                 }
             }
+                Grid.AlternatingRowsDefaultCellStyle.BackColor = Color.AliceBlue;
+
+                Grid.EnableHeadersVisualStyles = false;
+
+                Grid.ColumnHeadersDefaultCellStyle.BackColor = Color.DarkBlue;
+
+                Grid.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+
+                Grid.ColumnHeadersDefaultCellStyle.Font =
+                    new Font("Segoe UI", 10, FontStyle.Bold);
         }
 
         protected override async Task OnBoton1Async()
@@ -71,10 +82,10 @@ namespace T2ProyectoInventariado.Forms
             var producto = await Task.Run(() => _service.ObtenerPorId(id.Value));
             if (producto == null) return;
             DialogResult respuesta = MessageBox.Show(
-            "¿Desea editar este producto?",
-            "Confirmación",
-            MessageBoxButtons.YesNo,
-            MessageBoxIcon.Question);
+                "¿Desea editar este producto?",
+                "Confirmación",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
 
             if (respuesta == DialogResult.No)
                 return;
