@@ -43,16 +43,24 @@ namespace T2ProyectoInventariado.Forms
                     row.DefaultCellStyle.ForeColor = Color.DarkRed;
                 }
             }
-                Grid.AlternatingRowsDefaultCellStyle.BackColor = Color.AliceBlue;
+            int productosStockBajo = 0;
 
-                Grid.EnableHeadersVisualStyles = false;
+            foreach (DataGridViewRow row in Grid.Rows)
+            {
+                if (row.Cells["Estado"].Value?.ToString() == "⚠ STOCK BAJO")
+                {
+                    productosStockBajo++;
+                }
+            }
 
-                Grid.ColumnHeadersDefaultCellStyle.BackColor = Color.DarkBlue;
-
-                Grid.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
-
-                Grid.ColumnHeadersDefaultCellStyle.Font =
-                    new Font("Segoe UI", 10, FontStyle.Bold);
+            if (productosStockBajo > 0)
+            {
+                MessageBox.Show(
+                    $"Hay {productosStockBajo} productos con stock bajo.",
+                    "Aviso",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+            }
         }
 
         protected override async Task OnBoton1Async()
