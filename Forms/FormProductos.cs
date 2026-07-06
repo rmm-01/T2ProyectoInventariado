@@ -8,10 +8,9 @@ namespace T2ProyectoInventariado.Forms
         private readonly ProductoService _service;
 
         public FormProductos(IProductoRepository repository)
-            : base("Gestión de Productos", new Size(900, 500), "Nuevo Producto", "Editar Producto")
+            : base("Gestión de Productos", new Size(900, 500), "Nuevo Producto", "Editar Producto", "Eliminar Producto")
         {
             _service = new ProductoService(repository);
-            CargarInicial();
         }
 
         protected override object ObtenerFilas()
@@ -28,7 +27,7 @@ namespace T2ProyectoInventariado.Forms
                 p.StockActual,
                 p.StockMinimo,
                 p.StockMaximo,
-                Estado = _service.TieneStockBajo(p) ? "⚠ STOCK BAJO" : "OK"
+                Estado = _service.TieneStockBajo(p) ? "STOCK BAJO" : "OK"
             }).ToList();
         }
 
@@ -38,15 +37,15 @@ namespace T2ProyectoInventariado.Forms
 
             foreach (DataGridViewRow row in Grid.Rows)
             {
-                if (row.Cells["Estado"].Value?.ToString() == "⚠ STOCK BAJO")
+                if (row.Cells["Estado"].Value?.ToString() == "STOCK BAJO")
                 {
-                    row.DefaultCellStyle.BackColor = Color.LightCoral;
-                    row.DefaultCellStyle.ForeColor = Color.DarkRed;
+                    row.DefaultCellStyle.BackColor = ColorTranslator.FromHtml("#F5D5CF");
+                    row.DefaultCellStyle.ForeColor = Theme.Alerta;
                     stockBajo++;
                 }
             }
 
-            Text = $"Gestión de Productos — {Grid.Rows.Count} productos, {stockBajo} con stock bajo";
+            HeaderBadge.Text = $"{Grid.Rows.Count} productos · {stockBajo} con stock bajo";
         }
 
         protected override async Task OnBoton1Async()
@@ -86,6 +85,29 @@ namespace T2ProyectoInventariado.Forms
             {
                 await Task.Run(() => _service.Actualizar(form.Producto));
                 await RecargarAsync();
+            }
+        }
+
+        protected override async Task OnBoton3Async()
+        {
+            var id = ObtenerIdSeleccionado();
+            if (id == null) return;
+
+            var respuesta = MessageBox.Show(
+                "¿Seguro que desea eliminar este producto? Esta acción no se puede deshacer.",
+                "Confirmar eliminación",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning);
+            if (respuesta == DialogResult.No) return;
+
+            try
+            {
+                await Task.Run(() => _service.Eliminar(id.Value));
+                await RecargarAsync();
+            }
+            catch (InvalidOperationException ex)
+            {
+                MessageBox.Show(ex.Message, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
     }

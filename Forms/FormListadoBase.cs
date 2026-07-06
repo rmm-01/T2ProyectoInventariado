@@ -8,18 +8,24 @@ namespace T2ProyectoInventariado.Forms
     public abstract class FormListadoBase : Form
     {
         protected readonly DataGridView Grid;
+        protected readonly Label HeaderBadge;
 
-        protected FormListadoBase(string titulo, Size clientSize, string textoBoton1, string textoBoton2)
+        private const int AltoHeader = 56;
+
+        protected FormListadoBase(string titulo, Size clientSize, string textoBoton1, string textoBoton2, string? textoBoton3 = null)
         {
             Text = titulo;
             ClientSize = clientSize;
             MinimumSize = new Size(500, 350) + (Size - ClientSize);
             StartPosition = FormStartPosition.CenterScreen;
+            BackColor = Theme.Lienzo;
+
+            var header = Theme.CrearHeader(titulo, clientSize.Width, AltoHeader, out HeaderBadge);
 
             Grid = new DataGridView
             {
-                Location = new Point(10, 10),
-                Size = new Size(clientSize.Width - 20, clientSize.Height - 90),
+                Location = new Point(10, AltoHeader + 10),
+                Size = new Size(clientSize.Width - 20, clientSize.Height - 90 - AltoHeader),
                 Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right,
                 AllowUserToAddRows = false,
                 AllowUserToDeleteRows = false,
@@ -27,15 +33,16 @@ namespace T2ProyectoInventariado.Forms
                 SelectionMode = DataGridViewSelectionMode.FullRowSelect,
                 AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
             };
+            Theme.EstilizarGrid(Grid);
 
             var btn1 = new Button
             {
                 Text = textoBoton1,
                 Location = new Point(10, clientSize.Height - 60),
                 Size = new Size(160, 40),
-                Font = new Font("Segoe UI", 10),
                 Anchor = AnchorStyles.Bottom | AnchorStyles.Left
             };
+            Theme.EstilizarBotonPrimario(btn1);
             btn1.Click += async (s, e) => await ConBloqueoDeUiAsync(OnBoton1Async);
 
             var btn2 = new Button
@@ -43,16 +50,29 @@ namespace T2ProyectoInventariado.Forms
                 Text = textoBoton2,
                 Location = new Point(180, clientSize.Height - 60),
                 Size = new Size(180, 40),
-                Font = new Font("Segoe UI", 10),
                 Anchor = AnchorStyles.Bottom | AnchorStyles.Left
             };
+            Theme.EstilizarBotonSecundario(btn2);
             btn2.Click += async (s, e) => await ConBloqueoDeUiAsync(OnBoton2Async);
 
-            Controls.AddRange(new Control[] { Grid, btn1, btn2 });
-        }
+            Controls.AddRange(new Control[] { Grid, btn1, btn2, header });
 
-        /// <summary>Se llama una vez los controles ya estan armados (constructor del form derivado).</summary>
-        protected async void CargarInicial() => await RecargarAsync();
+            if (textoBoton3 != null)
+            {
+                var btn3 = new Button
+                {
+                    Text = textoBoton3,
+                    Location = new Point(370, clientSize.Height - 60),
+                    Size = new Size(140, 40),
+                    Anchor = AnchorStyles.Bottom | AnchorStyles.Left
+                };
+                Theme.EstilizarBotonPeligro(btn3);
+                btn3.Click += async (s, e) => await ConBloqueoDeUiAsync(OnBoton3Async);
+                Controls.Add(btn3);
+            }
+
+            Load += async (s, e) => await RecargarAsync();
+        }
 
         protected async Task RecargarAsync()
         {
@@ -94,5 +114,8 @@ namespace T2ProyectoInventariado.Forms
         protected abstract Task OnBoton1Async();
 
         protected abstract Task OnBoton2Async();
+
+        /// <summary>Hook opcional para un tercer boton (p. ej. Eliminar); no se usa si textoBoton3 es null.</summary>
+        protected virtual Task OnBoton3Async() => Task.CompletedTask;
     }
 }

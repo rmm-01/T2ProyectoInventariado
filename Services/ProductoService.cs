@@ -29,6 +29,8 @@ namespace T2ProyectoInventariado.Services
 
         public void Actualizar(Producto producto) => _repository.Actualizar(producto);
 
+        public void Eliminar(int id) => _repository.Eliminar(id);
+
         public bool TieneStockBajo(Producto producto) => producto.StockActual < producto.StockMinimo;
     }
 }

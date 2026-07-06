@@ -8,5 +8,6 @@ namespace T2ProyectoInventariado.Interfaces
         Proveedor? ObtenerPorId(int id);
         void Agregar(Proveedor proveedor);
         void Actualizar(Proveedor proveedor);
+        void Eliminar(int id);
     }
 }

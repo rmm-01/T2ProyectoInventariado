@@ -17,7 +17,6 @@ namespace T2ProyectoInventariado.Forms
             _productoRepo = productoRepo;
             _proveedorRepo = proveedorRepo;
             _service = new OrdenCompraService(ordenRepo, productoRepo, new StockService(new MovimientoEntrada()));
-            CargarInicial();
         }
 
         protected override object ObtenerFilas()

@@ -17,6 +17,7 @@ namespace T2ProyectoInventariado.Forms
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
             MinimizeBox = false;
+            BackColor = Theme.Lienzo;
 
             int y = 15;
             const int labelX = 15, inputX = 150, inputW = 220;
@@ -61,10 +62,12 @@ namespace T2ProyectoInventariado.Forms
             Controls.Add(_numStockMax); y += 45;
 
             var btnGuardar = new Button { Text = "Guardar", Location = new Point(150, y), Size = new Size(100, 35), DialogResult = DialogResult.OK };
+            Theme.EstilizarBotonPrimario(btnGuardar);
             btnGuardar.Click += BtnGuardar_Click;
             Controls.Add(btnGuardar);
 
             var btnCancelar = new Button { Text = "Cancelar", Location = new Point(260, y), Size = new Size(100, 35), DialogResult = DialogResult.Cancel };
+            Theme.EstilizarBotonSecundario(btnCancelar);
             Controls.Add(btnCancelar);
 
             AcceptButton = btnGuardar;

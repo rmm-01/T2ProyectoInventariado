@@ -19,5 +19,7 @@ namespace T2ProyectoInventariado.Services
         public void Agregar(Proveedor proveedor) => _repository.Agregar(proveedor);
 
         public void Actualizar(Proveedor proveedor) => _repository.Actualizar(proveedor);
+
+        public void Eliminar(int id) => _repository.Eliminar(id);
     }
 }

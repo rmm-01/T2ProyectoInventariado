@@ -8,5 +8,6 @@ namespace T2ProyectoInventariado.Interfaces
         Producto? ObtenerPorId(int id);
         void Agregar(Producto producto);
         void Actualizar(Producto producto);
+        void Eliminar(int id);
     }
 }

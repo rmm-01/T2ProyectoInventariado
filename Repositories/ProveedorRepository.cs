@@ -62,6 +62,26 @@ namespace T2ProyectoInventariado.Repositories
             cmd.ExecuteNonQuery();
         }
 
+        public void Eliminar(int id)
+        {
+            using var conn = new SqlConnection(_cs);
+            conn.Open();
+
+            using (var check = conn.CreateCommand())
+            {
+                check.CommandText = "SELECT COUNT(1) FROM dbo.OrdenCompra WHERE ProveedorId = @id;";
+                check.Parameters.AddWithValue("@id", id);
+                var enUso = (int)check.ExecuteScalar()! > 0;
+                if (enUso)
+                    throw new InvalidOperationException("No se puede eliminar: el proveedor tiene órdenes de compra asociadas.");
+            }
+
+            using var cmd = conn.CreateCommand();
+            cmd.CommandText = "DELETE FROM dbo.Proveedor WHERE Id = @id;";
+            cmd.Parameters.AddWithValue("@id", id);
+            cmd.ExecuteNonQuery();
+        }
+
         private static void Bind(SqlCommand cmd, Proveedor p)
         {
             cmd.Parameters.AddWithValue("@RazonSocial", p.RazonSocial);

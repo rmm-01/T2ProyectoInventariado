@@ -24,6 +24,7 @@ namespace T2ProyectoInventariado.Forms
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
             MinimizeBox = false;
+            BackColor = Theme.Lienzo;
 
             Controls.Add(new Label { Text = "Proveedor:", Location = new Point(15, 18), AutoSize = true });
             _cmbProveedor = new ComboBox
@@ -67,6 +68,7 @@ namespace T2ProyectoInventariado.Forms
             grpDetalle.Controls.Add(_numPrecio);
 
             var btnAgregar = new Button { Text = "+", Location = new Point(495, 23), Size = new Size(35, 28) };
+            Theme.EstilizarBotonPrimario(btnAgregar);
             btnAgregar.Click += BtnAgregar_Click;
             grpDetalle.Controls.Add(btnAgregar);
 
@@ -89,6 +91,7 @@ namespace T2ProyectoInventariado.Forms
                 ReadOnly = true,
                 AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
             };
+            Theme.EstilizarGrid(_dgvDetalles);
             Controls.Add(_dgvDetalles);
 
             var btnGuardar = new Button
@@ -99,6 +102,7 @@ namespace T2ProyectoInventariado.Forms
                 DialogResult = DialogResult.OK,
                 Anchor = AnchorStyles.Bottom | AnchorStyles.Right
             };
+            Theme.EstilizarBotonPrimario(btnGuardar);
             btnGuardar.Click += BtnGuardar_Click;
             Controls.Add(btnGuardar);
 
@@ -110,6 +114,7 @@ namespace T2ProyectoInventariado.Forms
                 DialogResult = DialogResult.Cancel,
                 Anchor = AnchorStyles.Bottom | AnchorStyles.Right
             };
+            Theme.EstilizarBotonSecundario(btnCancelar);
             Controls.Add(btnCancelar);
 
             AcceptButton = btnGuardar;

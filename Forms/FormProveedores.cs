@@ -8,10 +8,9 @@ namespace T2ProyectoInventariado.Forms
         private readonly ProveedorService _service;
 
         public FormProveedores(IProveedorRepository repository)
-            : base("Gestión de Proveedores", new Size(700, 450), "Nuevo Proveedor", "Editar Proveedor")
+            : base("Gestión de Proveedores", new Size(700, 450), "Nuevo Proveedor", "Editar Proveedor", "Eliminar Proveedor")
         {
             _service = new ProveedorService(repository);
-            CargarInicial();
         }
 
         protected override object ObtenerFilas() => _service.ObtenerTodos();
@@ -39,6 +38,29 @@ namespace T2ProyectoInventariado.Forms
             {
                 await Task.Run(() => _service.Actualizar(form.Proveedor));
                 await RecargarAsync();
+            }
+        }
+
+        protected override async Task OnBoton3Async()
+        {
+            var id = ObtenerIdSeleccionado();
+            if (id == null) return;
+
+            var respuesta = MessageBox.Show(
+                "¿Seguro que desea eliminar este proveedor? Esta acción no se puede deshacer.",
+                "Confirmar eliminación",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning);
+            if (respuesta == DialogResult.No) return;
+
+            try
+            {
+                await Task.Run(() => _service.Eliminar(id.Value));
+                await RecargarAsync();
+            }
+            catch (InvalidOperationException ex)
+            {
+                MessageBox.Show(ex.Message, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
     }

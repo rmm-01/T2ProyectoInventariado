@@ -16,6 +16,7 @@ namespace T2ProyectoInventariado.Forms
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
             MinimizeBox = false;
+            BackColor = Theme.Lienzo;
 
             int y = 15;
 
@@ -32,6 +33,7 @@ namespace T2ProyectoInventariado.Forms
             Controls.Add(_txtContacto); y += 45;
 
             var btnGuardar = new Button { Text = "Guardar", Location = new Point(130, y), Size = new Size(100, 35), DialogResult = DialogResult.OK };
+            Theme.EstilizarBotonPrimario(btnGuardar);
             btnGuardar.Click += (s, e) =>
             {
                 if (string.IsNullOrWhiteSpace(_txtRazonSocial.Text))
@@ -48,6 +50,7 @@ namespace T2ProyectoInventariado.Forms
             Controls.Add(btnGuardar);
 
             var btnCancelar = new Button { Text = "Cancelar", Location = new Point(240, y), Size = new Size(100, 35), DialogResult = DialogResult.Cancel };
+            Theme.EstilizarBotonSecundario(btnCancelar);
             Controls.Add(btnCancelar);
 
             AcceptButton = btnGuardar;
